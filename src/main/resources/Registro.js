@@ -5,7 +5,7 @@ btnRegistro.addEventListener("click", function() {
     var usuario = document.getElementById("user").value;
     var contraseña = document.getElementById("password").value;
 
-    axios.post("/registrarUsuario", {
+    axios.post("http://localhost:4567/registrarUsuario", {
 
         usuario : usuario,
         contraseña : contraseña
@@ -26,3 +26,19 @@ btnRegistro.addEventListener("click", function() {
         })
 
 });
+
+let checked = null;
+
+for (let checkBox of document.getElementsByClassName('claseCheck')){
+
+    checkBox.onclick = function(){
+
+      if(checked!=null){
+      checked.checked = false;
+      checked = checkBox;
+      
+    }
+
+    checked = checkBox;
+  }
+}
