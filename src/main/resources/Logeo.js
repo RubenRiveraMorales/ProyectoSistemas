@@ -5,7 +5,7 @@ btnIngresar.addEventListener("click", function() {
     var usuario = document.getElementById("user").value;
     var contraseña = document.getElementById("password").value;
 
-    axios.post("/logearUsuario", {
+    axios.post("http://localhost:4567/logearUsuario", {
 
         usuario : usuario,
         contraseña : contraseña
@@ -13,7 +13,17 @@ btnIngresar.addEventListener("click", function() {
     })
         .then(function(response) {
 
-            console.log(response.data);
+            if(response.data == 1) {
+
+                alert("Bienvenido " + usuario);
+                //location.pathname("")
+
+            } else {
+
+                alert("Usuario o contraseña incorrectas :(");
+                location.reload();
+
+            }
 
         })
 

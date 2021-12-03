@@ -12,7 +12,6 @@ import mx.uv.bd.usuario;
 public class App 
 {
 
-    private static Gson gson = new Gson();
 
     public static void main( String[] args )
     {
@@ -47,15 +46,14 @@ public class App
             String usuario = peticion.get("usuario").getAsString();
             String contraseña = peticion.get("contraseña").getAsString();
 
-            
+            DAO dao = new DAO();
 
-            return "";
+            return dao.logearUsuario(usuario, contraseña);
 
         });
 
         post("/registrarUsuario", (req, res) -> { 
 
-            String payload = req.body();
             String id = UUID.randomUUID().toString();
             usuario u = new usuario(id);
 
