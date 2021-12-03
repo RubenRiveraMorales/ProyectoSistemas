@@ -57,8 +57,15 @@ public class App
 
             String payload = req.body();
             String id = UUID.randomUUID().toString();
-            usuario u = gson.fromJson(payload, usuario.class);
-            u.setId(id);
+            usuario u = new usuario(id);
+
+            JsonParser parser = new JsonParser();
+            JsonElement arbol = parser.parse(req.body());
+            JsonObject peticion = arbol.getAsJsonObject();
+
+            u.setNombre(peticion.get("usuario").getAsString());
+            u.setPassword(peticion.get("contraseña").getAsString());
+            u.setRol(peticion.get("rol").getAsString());
 
             System.out.println(u.getNombre());
             

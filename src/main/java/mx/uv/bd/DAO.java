@@ -22,7 +22,7 @@ public class DAO {
 
         try {
             
-            msj = "Si se pudo";
+            msj = "Si se pudo crear alumno";
 
         } catch (Exception e) {
 
@@ -69,7 +69,7 @@ public class DAO {
 
         try {
             
-
+            msj = "Si se pudo crear profesor";
 
         } catch (Exception e) {
 

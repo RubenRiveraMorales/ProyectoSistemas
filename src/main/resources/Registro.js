@@ -34,7 +34,7 @@ btnRegistro.addEventListener("click", function() {
     })
         .then(function(response) {
 
-            alert("Usuario: " + response.data.nombre + " registrado");
+            alert(response.data.status + " con nombre: " + response.data.nombre);
 
         })
 
