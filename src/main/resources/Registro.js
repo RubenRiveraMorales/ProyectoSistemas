@@ -4,17 +4,37 @@ btnRegistro.addEventListener("click", function() {
 
     var usuario = document.getElementById("user").value;
     var contraseña = document.getElementById("password").value;
+    var rol
+    
+    if(document.getElementById("checkProfesor").checked) {
+
+        rol = "profesor";
+
+    } else {
+
+        if(document.getElementById("checkAlumno").checked) {
+
+            rol = "alumno";
+    
+        } else {
+
+            alert("No se selecciono el rol :(");
+            location.reload();
+
+        }
+
+    }
 
     axios.post("http://localhost:4567/registrarUsuario", {
 
         usuario : usuario,
-        contraseña : contraseña
+        contraseña : contraseña,
+        rol : rol
 
     })
         .then(function(response) {
 
-            console.log(response.data);
-            alert("Usuario registrado");
+            alert("Usuario: " + response.data.nombre + " registrado");
 
         })
 

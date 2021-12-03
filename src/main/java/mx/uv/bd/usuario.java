@@ -5,11 +5,13 @@ public class usuario {
     private String id;
     private String nombre;
     private String password;
+    private String rol;
 
-    public usuario(String id, String nombre, String password) {
+    public usuario(String id, String nombre, String password, String rol) {
         this.setId(id);
         this.setNombre(nombre);
         this.setPassword(password);
+        this.setRol(rol);
     }
 
     public usuario(String id) {
@@ -38,6 +40,14 @@ public class usuario {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
 }

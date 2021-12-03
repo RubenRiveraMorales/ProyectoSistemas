@@ -1,6 +1,9 @@
 package mx.uv;
 
 import static spark.Spark.*;
+
+import java.util.UUID;
+
 import com.google.gson.*;
 
 import mx.uv.bd.DAO;
@@ -8,6 +11,9 @@ import mx.uv.bd.usuario;
 
 public class App 
 {
+
+    private static Gson gson = new Gson();
+
     public static void main( String[] args )
     {
 
@@ -49,10 +55,32 @@ public class App
 
         post("/registrarUsuario", (req, res) -> { 
 
-            DAO dao = new DAO();
-            usuario u = new usuario("123");
+            String payload = req.body();
+            String id = UUID.randomUUID().toString();
+            usuario u = gson.fromJson(payload, usuario.class);
+            u.setId(id);
 
-            return dao.crearAlumno(u);
+            System.out.println(u.getNombre());
+            
+            DAO dao = new DAO();
+
+            JsonObject objectJson = new JsonObject();
+
+            if(u.getRol().equals("profesor")) {
+
+                objectJson.addProperty("status", dao.crearProfesor(u));
+
+            }
+
+            if(u.getRol().equals("alumno")) {
+
+                objectJson.addProperty("status", dao.crearAlumno(u));
+
+            }
+
+            objectJson.addProperty("nombre", u.getNombre());
+
+            return objectJson;
 
         });
 
