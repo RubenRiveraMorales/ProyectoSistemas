@@ -3,12 +3,7 @@ package mx.uv.bd;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.mysql.cj.xdevapi.Result;
 
 public class DAO {
     
@@ -138,67 +133,79 @@ public class DAO {
 
     public int logearUsuario (String nombre, String password) {
 
-        Statement stm = null;
+        PreparedStatement stm = null;
         ResultSet rs = null;
         Connection con = null;
         int numero = 0;
 
         con = conexion.getConnection();
 
+        // Arreglar todo con las nuevas instrucciones con where
+
         try {
             
-            String sql = "SELECT nombre FROM alumno";
-            stm = con.createStatement();
+            String sql = "SELECT nombre, password FROM alumno WHERE nombre=? and password=?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, nombre);
             rs = stm.executeQuery(sql);
 
-            if(rs.wasNull()) {
-
-                stm.close();
-                sql = "SELECT nombre FROM profesor";
-                stm = con.createStatement();
-                rs = stm.executeQuery(sql);
-
-                if(rs.wasNull()) {
-
-                    numero = 0;
-
-                } else {
-
-                    stm.close();
-                    rs.close();
-                    sql = "SELECT password FROM profesor";
-                    stm = con.createStatement();
-                    rs = stm.executeQuery(sql);
-
-                    if(rs.wasNull()) {
-
-                        numero = 0;
-
-                    } else {
-
-                        numero = 1;
-
-                    }
-
-                }
-
-            } else {
-
+            if(rs.next()) {
+                
+                System.out.println("Nombre - alumno " + rs.getString("nombre"));
                 stm.close();
                 rs.close();
                 sql = "SELECT password FROM alumno";
                 stm = con.createStatement();
                 rs = stm.executeQuery(sql);
 
-                if(rs.wasNull()) {
+                if(rs.next()) {
 
-                    numero = 0;
+                    System.out.println("Contraseña - alumno");
+                    numero = 1;
 
                 } else {
 
-                    numero = 1;
+                    System.out.println("No");
+                    numero = 0;
 
                 }
+                
+            } else {
+
+                rs.close();
+                stm.close();
+                sql = "SELECT nombre FROM profesor";
+                stm = con.createStatement();
+                rs = stm.executeQuery(sql);
+
+                if(rs.next()) {
+
+                    System.out.println("Nombre - profesor");
+                    stm.close();
+                    rs.close();
+                    sql = "SELECT password FROM profesor";
+                    stm = con.createStatement();
+                    rs = stm.executeQuery(sql);
+
+                    if(rs.next()) {
+
+                        System.out.println("Contraseña - profesor");
+                        numero = 2;
+
+                    } else {
+
+                        System.out.println("No");
+                        numero = 0;
+
+                    }
+
+                } else {
+
+                    System.out.println("No");
+                    numero = 0;
+
+                }
+
 
             }
 

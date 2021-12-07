@@ -13,15 +13,24 @@ btnIngresar.addEventListener("click", function() {
     })
         .then(function(response) {
 
-            if(response.data == 1) {
+            if(response.data.redirect == 1) {
 
-                alert("Bienvenido " + usuario);
-                //location.pathname("")
+                alert("Bienvenido " + response.data.usuario);
+                location.pathname("/PrincipalAlumno.html");
 
             } else {
 
-                alert("Usuario o contraseña incorrectas :(");
-                location.reload();
+                if(response.data.redirect == 2) {
+
+                    alert("Bienvenido " + response.data.usuario);
+                    location.pathname("/PrincipalProfesor.html");
+
+                } else {
+
+                    alert("No esta registrado :(");
+                    location.reload();
+
+                }
 
             }
 

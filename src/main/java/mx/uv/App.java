@@ -1,18 +1,13 @@
 package mx.uv;
 
 import static spark.Spark.*;
-
 import java.util.UUID;
-
 import com.google.gson.*;
-
 import mx.uv.bd.DAO;
 import mx.uv.bd.usuario;
 
 public class App 
 {
-
-
     public static void main( String[] args )
     {
 
@@ -35,7 +30,7 @@ public class App
 
         before((req, res) -> res.header("Access-Control-Allow-Origin", "*"));
 
-        //System.out.println( "Holaaaaaa" );
+        //---------------------------------------------------------------------------------------
 
         post("/logearUsuario", (req, res) -> {
 
@@ -48,9 +43,33 @@ public class App
 
             DAO dao = new DAO();
 
-            return dao.logearUsuario(usuario, contraseña);
+            JsonObject objectJson = new JsonObject();
+            objectJson.addProperty("usuario", usuario);
+
+            if(dao.logearUsuario(usuario, contraseña) == 1) {
+
+                objectJson.addProperty("redirect", 1);
+
+            } else {
+
+                if(dao.logearUsuario(usuario, contraseña) == 2) {
+
+                    objectJson.addProperty("redirect", 2);
+
+                } else {
+
+                    objectJson.addProperty("redirect", 0);
+
+                }
+
+            }
+            
+
+            return objectJson;
 
         });
+
+        //----------------------------------------------------------------------------------------
 
         post("/registrarUsuario", (req, res) -> { 
 
@@ -64,8 +83,6 @@ public class App
             u.setNombre(peticion.get("usuario").getAsString());
             u.setPassword(peticion.get("contraseña").getAsString());
             u.setRol(peticion.get("rol").getAsString());
-
-            System.out.println(u.getNombre());
             
             DAO dao = new DAO();
 
