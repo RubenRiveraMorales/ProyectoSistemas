@@ -16,14 +16,14 @@ btnIngresar.addEventListener("click", function() {
             if(response.data.redirect == 1) {
 
                 alert("Bienvenido " + response.data.usuario);
-                location.pathname("/PrincipalAlumno.html");
+                window.location.pathname = "/src/main/resources/PrincipalAlumno.html";
 
             } else {
 
                 if(response.data.redirect == 2) {
 
                     alert("Bienvenido " + response.data.usuario);
-                    location.pathname("/PrincipalProfesor.html");
+                    window.location.pathname = "/src/main/resources/PrincipalProfesor.html";
 
                 } else {
 

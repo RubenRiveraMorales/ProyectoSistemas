@@ -5,37 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <style>
+        label {
+            margin: 10px;
+        }
+    </style>
     <title>Crear encuestas</title>
 </head>
 <body>
     
     <div class="container">
 
-        <div class="row justify-content-center border rounded mt-4 mb-2">
+        <div class="mb-0 border border-primary text-center" style="margin-top: 30px;">
 
             <div class="col-auto">
 
-                <label>Escribe tu pregunta: </label>
+                <label class="col-form-label-lg" style="font-size: xx-large;">Escribe tus preguntas: </label>
 
             </div>
 
         </div>
 
-        <div class="row">
+        <div class="row align-self-center border border-warning" style="margin-top: 30px;">
 
-            <div class="col-2">
+            <div class="col-5" style="margin-top: 20px;">
 
-                <input type="text" id="inputPregunta" placeholder="Escribe...">
+                <input type="text" id="inputPregunta" placeholder="Escribe..." size="60">
 
             </div>
 
-            <div class="col-2">
+            <div class="col-2" style="margin-top: 20px;">
 
                 <input type="button" value="Agregar pregunta" id="btnAgregar">
 
             </div>
 
-            <div class="col-8">
+            <div class="col-5" style="margin-top: 10px; padding-bottom: 15px;">
 
                 <label for="inputVideo">Sube tu video:</label>
                 <input type="file" name="video" accept=".mp4, .mkv, .avi, .flv, .wmv, .mov" id="inputVideo">

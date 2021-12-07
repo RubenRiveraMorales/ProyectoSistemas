@@ -134,8 +134,8 @@ public class DAO {
     public int logearUsuario (String nombre, String password) {
 
         PreparedStatement stm = null;
-        ResultSet rs = null;
         Connection con = null;
+        ResultSet rs = null;
         int numero = 0;
 
         con = conexion.getConnection();
@@ -147,65 +147,31 @@ public class DAO {
             String sql = "SELECT nombre, password FROM alumno WHERE nombre=? and password=?";
             stm = con.prepareStatement(sql);
             stm.setString(1, nombre);
-            rs = stm.executeQuery(sql);
+            stm.setString(2, password);
+            rs = stm.executeQuery();
 
             if(rs.next()) {
-                
-                System.out.println("Nombre - alumno " + rs.getString("nombre"));
-                stm.close();
-                rs.close();
-                sql = "SELECT password FROM alumno";
-                stm = con.createStatement();
-                rs = stm.executeQuery(sql);
 
-                if(rs.next()) {
+                numero = 1;
 
-                    System.out.println("Contraseña - alumno");
-                    numero = 1;
-
-                } else {
-
-                    System.out.println("No");
-                    numero = 0;
-
-                }
-                
             } else {
 
-                rs.close();
                 stm.close();
-                sql = "SELECT nombre FROM profesor";
-                stm = con.createStatement();
-                rs = stm.executeQuery(sql);
+                sql = "SELECT nombre, password FROM profesor WHERE nombre=? and password=?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, nombre);
+                stm.setString(2, password);
+                rs = stm.executeQuery();
 
                 if(rs.next()) {
 
-                    System.out.println("Nombre - profesor");
-                    stm.close();
-                    rs.close();
-                    sql = "SELECT password FROM profesor";
-                    stm = con.createStatement();
-                    rs = stm.executeQuery(sql);
-
-                    if(rs.next()) {
-
-                        System.out.println("Contraseña - profesor");
-                        numero = 2;
-
-                    } else {
-
-                        System.out.println("No");
-                        numero = 0;
-
-                    }
+                    numero = 2;
 
                 } else {
 
-                    System.out.println("No");
                     numero = 0;
 
                 }
-
 
             }
 
