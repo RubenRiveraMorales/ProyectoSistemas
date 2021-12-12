@@ -57,8 +57,8 @@
 
             <div class="col-5" style="margin-top: 10px; padding-bottom: 15px;">
 
-                <label for="inputVideo">Escribe la URL del video: </label>
-                <input type="text" id="inputVideo" placeholder="Escribe..." size="35">
+                <label>Archivo: </label>
+                <input type="file" id="inputVideo" size="35">
 
             </div>
 
@@ -78,10 +78,29 @@
 
         </div>
 
+        <div class="row">
+
+            <div class="col-12">
+
+                <button type="button" class="btn btn-primary" id="btnEnviar">Guardar encuesta</button>
+
+            </div>
+
+        </div>
+
+        <div>
+
+            <span></span>
+
+        </div>
+
     </div>
 
 </body>
 
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://www.youtube.com/player_api"></script>
+<script type="text/javascript" id="www-widgetapi-script" src="https://s.ytimg.com/yts/jsbin/www-widgetapi-vflS50iB-/www-widgetapi.js" async=""></script>
 <script src="crearEncuesta.js"></script>
 
 </html>

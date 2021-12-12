@@ -1,7 +1,15 @@
 package mx.uv;
 
 import static spark.Spark.*;
+
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.*;
 import java.util.UUID;
+
+import javax.servlet.MultipartConfigElement;
+import javax.xml.catalog.Catalog;
+
 import com.google.gson.*;
 import mx.uv.bd.DAO;
 import mx.uv.bd.usuario;
@@ -11,7 +19,10 @@ public class App
     public static void main( String[] args )
     {
 
-        staticFiles.location("/");
+        File uploadDir = new File("upload");
+        uploadDir.mkdir();
+
+        staticFiles.externalLocation("upload");
 
         options("/*", (request, response) -> {
 
@@ -113,6 +124,22 @@ public class App
             
 
             return "";
+
+        });
+
+        //---------------------------------------------------------------------------------------
+
+        post("/guardarVideo", (req, res) -> {
+
+            req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
+
+            try (InputStream input = req.raw().getPart("videoPregunta").getInputStream()) {
+
+                Files.copy(input, uploadDir.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+            }
+
+            return "Se guardo el video";
 
         });
 
