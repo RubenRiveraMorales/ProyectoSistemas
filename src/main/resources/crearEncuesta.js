@@ -7,7 +7,9 @@ var contPreguntas = 0;
 
 let arrayURL = document.getElementById("inputVideo").value.split("=");
 
-btnAgregarPregunta.addEventListener("click", function() {
+btnAgregarPregunta.addEventListener("click", function(event) {
+
+    event.preventDefault();
 
     if(contPreguntas <= 9) {
 
@@ -50,18 +52,20 @@ btnAgregarPregunta.addEventListener("click", function() {
 
         contPreguntas ++;
 
-        guardarVideo(videoArchivo.files[0]);
+        guardarVideo(videoArchivo.files[0], contPreguntas);
+
+        guardarPregunta();
 
     } else {
 
         btnAgregarPregunta.disabled = true;
-        alert("No se peuden agregar mas preguntas, solo un maximo de 10");
+        alert("No se pueden agregar mas preguntas, solo un maximo de 10");
 
     }
 
 })
 
-function guardarVideo(stream) {
+function guardarVideo(stream, contPreguntas) {
 
     var formData = new FormData();
     formData.append("videoPregunta", stream);
@@ -73,21 +77,36 @@ function guardarVideo(stream) {
 
         }
 
-    })
-        .then(function(response) {
+    }, {
 
-            alert(response.data);
+        contPreguntas: contPreguntas
+
+    })
+        .then (function(response) {
+
+            console.log(response.data);
 
         })
 
-        .catch(function(error) {
+        .catch (function(error) {
 
             console.log(error);
-            alert("No se pudo guardar en video");
+            alert("Error al cargar tu video");
 
         })
+
+};
+
+function guardarPregunta() {
+
+    axios.post("/guardarPregunta", {
+
+
+
+    })
+
 }
 
 //--------------------------------------------------------------------------------
 
-var btnBorrarPregunta = document.getElementById("")
+//var btnBorrarPregunta = document.getElementById("");
