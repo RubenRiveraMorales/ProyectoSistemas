@@ -1,7 +1,7 @@
 document.body.onload = function() {
 
     //Hacerlo en un bucle, for o while
-    //for(let i=0; i<15; i++) {
+    /*for(let i=0; i<15; i++) {
 
         let divListaEncuesta = document.getElementById("listadoEncuestas");
         let divEncuesta = document.createElement("div");
@@ -30,7 +30,11 @@ document.body.onload = function() {
 
         divListaEncuesta.appendChild(divEncuesta);
 
-    //}
+    }*/
+
+    alert("No supimos como manejar un Map/Haspmap en javascrit, pero si pasan los datos");
+    alert("Espere unos minutos a que cargue la base de datos, tarda un poco pero si muestra la encuesta en un alert");
+    obtenerEncuesta(1);
 
 }
 
@@ -44,7 +48,7 @@ function obtenerEncuesta(noEncuesta) {
 
         .then(function(respose) {
 
-            return respose.data;
+            alert(respose.data);
 
         })
 
@@ -56,3 +60,11 @@ function obtenerEncuesta(noEncuesta) {
         })
 
 };
+
+var btnCerrarSesion = document.getElementById("btnCerrarSesion");
+
+btnCerrarSesion.addEventListener("click", function() {
+
+    window.location.href = "/src/main/resources/Logeo.html";
+
+});

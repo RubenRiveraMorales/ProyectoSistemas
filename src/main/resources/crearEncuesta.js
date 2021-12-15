@@ -2,14 +2,11 @@ var btnAgregarPregunta = document.getElementById("btnAgregar");
 
 var listaPreguntas = document.getElementById("preguntasLista");
 
-var player;
 var contPreguntas = 0;
 
 let arrayURL = document.getElementById("inputVideo").value.split("=");
 
-btnAgregarPregunta.addEventListener("click", function(event) {
-
-    event.preventDefault();
+btnAgregarPregunta.addEventListener("click", function() {
 
     if(contPreguntas <= 9) {
 
@@ -29,12 +26,30 @@ btnAgregarPregunta.addEventListener("click", function(event) {
         pregunta.style.display = "flex";
         pregunta.style.justifyContent = "center";
         pregunta.style.alignItems = "center"; 
+        pregunta.id = "div-" + contPreguntas;
 
         videoPregunta.width = "400";
         videoPregunta.controls = "true";
         videoPregunta.src = URL.createObjectURL(videoArchivo.files[0]);
 
         btnBorrar.style.marginRight = "20px";
+        btnBorrar.id = "btnBorrar" + "-" + contPreguntas;
+        btnBorrar.name = contPreguntas;
+        btnBorrar.onclick = function() {
+
+            let noDiv = document.getElementsByTagName("button")[0].name;
+
+            let divBorrar = document.getElementsByTagName("div")[noDiv+11]
+            
+            if(divBorrar !== null){
+                var parent = divBorrar.parentElement;
+                parent.removeChild(divBorrar);
+            }else{
+                alert ("No existe la caja previamente creada.");
+            }
+
+        }
+
         btnRespuestas.style.marginRight = "20px";
 
         labelPregunta.innerHTML = document.getElementById("inputPregunta").value;
@@ -52,9 +67,9 @@ btnAgregarPregunta.addEventListener("click", function(event) {
 
         contPreguntas ++;
 
-        guardarVideo(videoArchivo.files[0], contPreguntas);
+        guardarVideo(videoArchivo.files[0]);
 
-        guardarPregunta();
+        //guardarPregunta();
 
     } else {
 
@@ -65,7 +80,7 @@ btnAgregarPregunta.addEventListener("click", function(event) {
 
 })
 
-function guardarVideo(stream, contPreguntas) {
+function guardarVideo(stream) {
 
     var formData = new FormData();
     formData.append("videoPregunta", stream);
@@ -75,16 +90,12 @@ function guardarVideo(stream, contPreguntas) {
 
             "Content-Type" : "multipart/form-data"
 
-        }
-
-    }, {
-
-        contPreguntas: contPreguntas
+        },
 
     })
-        .then (function(response) {
+        .then ((res) => {
 
-            console.log(response.data);
+            alert(res.data);
 
         })
 
@@ -97,7 +108,7 @@ function guardarVideo(stream, contPreguntas) {
 
 };
 
-function guardarPregunta() {
+/*function guardarPregunta() {
 
     axios.post("/guardarPregunta", {
 
@@ -105,8 +116,6 @@ function guardarPregunta() {
 
     })
 
-}
+}*/
 
 //--------------------------------------------------------------------------------
-
-//var btnBorrarPregunta = document.getElementById("");

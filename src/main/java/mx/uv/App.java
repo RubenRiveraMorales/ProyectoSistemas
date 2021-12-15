@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.MultipartConfigElement;
+import javax.sound.midi.SysexMessage;
 
 import com.google.gson.*;
 
@@ -137,9 +138,8 @@ public class App
 
         post("/guardarVideo", (req, res) -> {
 
+            /*String msj = "No se hizo nada";
             DAO dao = new DAO();
-
-            //String payload = req.body();
 
             Path tempFile = Files.createTempFile(uploadDir.toPath(), dao.consultarNumeroEncuestas()+1 + "-video-", ".mp4");
 
@@ -148,10 +148,11 @@ public class App
             try (InputStream input = req.raw().getPart("videoPregunta").getInputStream()) {
 
                 Files.copy(input, tempFile, StandardCopyOption.REPLACE_EXISTING);
+                msj = "Se copio archivo";
 
-            }
+            }*/
 
-            return "Se guardo video";
+            return "Maestro, esta parte no funciona porque cuando guarda video, se recarga la pagina y se borra la pregunta introducida. Solo guarda el video";
 
         });
 
